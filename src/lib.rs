@@ -98,6 +98,12 @@ fn run_meson(lib: &str, dir: &str, config: Config) {
             args.insert(3, "--native-file".to_string())
         }
 
+        // Apply cross file
+        if let Some(cross_file) = config.cross_file {
+            args.insert(3, cross_file.into_os_string().to_str().unwrap().to_string());
+            args.insert(3, "--cross-file".to_string())
+        }
+
         // convert owned strings into string slices for run_command
         let args: Vec<&str> = args.iter().map(|s| &**s).collect();
 

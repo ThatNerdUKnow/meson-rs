@@ -7,6 +7,7 @@ use std::{
 pub struct Config {
     pub options: Option<HashMap<String, String>>,
     pub native_file: Option<PathBuf>,
+    pub cross_file: Option<PathBuf>,
 }
 
 impl Config {
@@ -14,6 +15,7 @@ impl Config {
         Config {
             options: None,
             native_file: None,
+            cross_file: None,
         }
     }
 
@@ -33,6 +35,13 @@ impl Config {
         let native_file: PathBuf = native_file.as_ref().into();
         let mut config = self;
         config.native_file = Some(native_file);
+        config
+    }
+
+    pub fn cross_file(self, cross_file: impl AsRef<Path>) -> Self {
+        let cross_file: PathBuf = cross_file.as_ref().into();
+        let mut config = self;
+        config.cross_file = Some(cross_file);
         config
     }
 }
